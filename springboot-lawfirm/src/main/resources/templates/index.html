@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Law Firm Management</title>
+    
+    <!-- Bootstrap CSS -->
+    <link th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css}" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link th:href="@{/css/index.css}" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" th:href="@{/}"><i class="bi bi-building"></i> Law Firm</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link active" th:href="@{/}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/clients}">Clients & Lawyers</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/cases}">Cases & Hearings</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/appointments}">Appointments</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="bg-primary text-white text-center py-5">
+        <div class="container">
+            <h1><i class="bi bi-house-door"></i> Welcome to Our Law Firm</h1>
+            <p>Professional Legal Services Tailored to Your Needs</p>
+            <a th:href="@{/appointments}" class="btn btn-light btn-lg">Schedule a Consultation</a>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section class="container mt-5">
+        <div class="row">
+            <div class="col-md-6">
+                <h2>About Our Firm</h2>
+                <p>We are a dedicated team of experienced lawyers providing expert legal counsel in various fields of law, including corporate, family, and criminal law.</p>
+                <p>Our mission is to offer professional, ethical, and personalized legal services to our clients.</p>
+            </div>
+            <div class="col-md-6">
+                <img th:src="@{/images/law-office.jpg}" class="img-fluid" alt="Law Office">
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="bg-white py-5 mt-5">
+        <div class="container text-center">
+            <h2>Our Legal Services</h2>
+            <div class="row mt-4">
+                <div class="col-md-4">
+                    <i class="bi bi-briefcase-fill display-4"></i>
+                    <h4>Corporate Law</h4>
+                    <p>Providing expert advice on business regulations and corporate legal matters.</p>
+                </div>
+                <div class="col-md-4">
+                    <i class="bi bi-person-lines-fill display-4"></i>
+                    <h4>Family Law</h4>
+                    <p>Guiding you through family-related legal matters such as divorce and child custody.</p>
+                </div>
+                <div class="col-md-4">
+                    <i class="bi bi-journal display-4"></i>
+                    <h4>Criminal Defense</h4>
+                    <p>Protecting your rights and providing a strong legal defense in criminal cases.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="container my-5 text-center">
+        <h2>Contact Us</h2>
+        <p>Need legal assistance? Get in touch with us today.</p>
+        <a th:href="@{/contact}" class="btn btn-primary">Get in Touch</a>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-3">
+        <p>&copy; 2024 Law Firm. All Rights Reserved.</p>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js}" defer></script>
+</body>
+</html>
