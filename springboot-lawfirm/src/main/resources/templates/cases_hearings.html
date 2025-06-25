@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+    />
+    <title>Cases & Hearings - Law Firm</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+    />
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+      <div class="container">
+        <a class="navbar-brand" href="index.html"
+          ><i class="bi bi-building"></i> Law Firm</a
+        >
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="clients_lawyers.html"
+                >Clients & Lawyers</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="cases_hearings.html"
+                >Cases & Hearings</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="appointments.html">Appointments</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="bg-primary text-white text-center py-4">
+      <div class="container">
+        <h1><i class="bi bi-folder2-open"></i> Cases & Hearings</h1>
+        <p>
+          Tracking ongoing and past legal cases along with court hearing
+          details.
+        </p>
+      </div>
+    </header>
+
+    <section class="container my-5">
+      <h2 class="text-center">Add New Case</h2>
+      <form action="add_case.php" method="POST">
+        <div class="mb-3">
+          <label for="clientid" class="form-label">Client ID</label>
+          <input
+            type="number"
+            class="form-control"
+            id="clientid"
+            name="clientid"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="lawyerid" class="form-label">Lawyer ID</label>
+          <input
+            type="number"
+            class="form-control"
+            id="lawyerid"
+            name="lawyerid"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="casedetails" class="form-label">Case Type</label>
+          <input
+            type="text"
+            class="form-control"
+            id="casedetails"
+            name="casedetails"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="status" class="form-label">Case Status</label>
+          <select class="form-control" id="status" name="status" required>
+            <option value="open">Open</option>
+            <option value="closed">Closed</option>
+            <option value="pending" selected>Pending</option>
+          </select>
+        </div>
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label for="filingdate" class="form-label">Filing Date</label>
+            <input
+              type="date"
+              class="form-control"
+              id="filingdate"
+              name="filingdate"
+            />
+          </div>
+          <div class="col-md-6">
+            <label for="closingdate" class="form-label">Closing Date</label>
+            <input
+              type="date"
+              class="form-control"
+              id="closingdate"
+              name="closingdate"
+            />
+          </div>
+        </div>
+        <div class="row g-2">
+          <div class="col-12 col-md-6 d-grid">
+            <button type="submit" class="btn btn-primary">Add Case</button>
+          </div>
+          <div class="col-12 col-md-6 d-grid">
+            <a href="cases_report.php" class="btn btn-primary">View Report</a>
+          </div>
+        </div>
+      </form>
+    </section>
+
+    <section class="container my-5">
+      <h2 class="text-center">Add New Hearing</h2>
+      <form action="add_hearing.php" method="POST">
+        <div class="mb-3">
+          <label for="caseid" class="form-label">CaseID</label>
+          <input
+            type="number"
+            class="form-control"
+            id="caseid"
+            name="caseid"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="hearingdate" class="form-label">Hearing Date</label>
+          <input
+            type="date"
+            class="form-control"
+            id="hearingdate"
+            name="hearingdate"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="judgename" class="form-label">Judge Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="judgename"
+            name="judgename"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="courtlocation" class="form-label">Court Location</label>
+          <input
+            type="text"
+            class="form-control"
+            id="courtlocation"
+            name="courtlocation"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="outcome" class="form-label">Case Outcome</label>
+          <select class="form-control" id="outcome" name="outcome" required>
+            <option value="open">Pending</option>
+            <option value="closed">Settled</option>
+            <option value="pending" selected>Pending</option>
+          </select>
+        </div>
+        <div class="row g-2">
+          <div class="col-12 col-md-6 d-grid">
+            <button type="submit" class="btn btn-primary">Add Hearing</button>
+          </div>
+          <div class="col-12 col-md-6 d-grid">
+            <a href="hearings_report.php" class="btn btn-primary">View Report</a>
+          </div>
+        </div>
+      </form>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-3">
+      <p>&copy; 2024 Law Firm. All Rights Reserved.</p>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+      defer
+    ></script>
+  </body>
+</html>
