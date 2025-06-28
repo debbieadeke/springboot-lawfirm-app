@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class CasesHearingsController {
 
-    @GetMapping("/cases-hearings")
+    @GetMapping("/cases_hearings")
     public String showCasesAndHearingsPage() {
         return "cases_hearings";  // matches cases_hearings.html in templates
     }
