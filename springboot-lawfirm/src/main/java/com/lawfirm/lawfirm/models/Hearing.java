@@ -1,8 +1,17 @@
 package com.lawfirm.lawfirm.models;
 import java.time.LocalDate;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "hearings")
+
 
 public class Hearing {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    
     private int caseId;
     private LocalDate hearingDate;
     private String judgeName;

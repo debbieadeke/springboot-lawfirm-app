@@ -1,7 +1,16 @@
 package com.lawfirm.lawfirm.models;
 import java.time.LocalDate;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "cases")
+
 public class Case {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    
     private int clientId;
     private int lawyerId;
     private String caseDetails;

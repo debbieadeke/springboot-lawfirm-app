@@ -1,6 +1,15 @@
 package com.lawfirm.lawfirm.models;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "lawyers")
+
 public class Lawyer {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    
     private String name;
     private String contact;
     private String email;
