@@ -1,4 +1,4 @@
-package com.lawfirm.lawfirm.repositories;
+package com.lawfirm.lawfirm.repository;
 
 import com.lawfirm.lawfirm.models.Hearing;
 import org.springframework.data.jpa.repository.JpaRepository;

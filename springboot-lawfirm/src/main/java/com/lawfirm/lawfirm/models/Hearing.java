@@ -35,4 +35,3 @@ public class Hearing {
     public void setOutcome(String outcome) { this.outcome = outcome; }
 }
 
-

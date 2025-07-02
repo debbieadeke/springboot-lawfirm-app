@@ -1,4 +1,4 @@
-package com.lawfirm.lawfirm.controllers;
+package com.lawfirm.lawfirm.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

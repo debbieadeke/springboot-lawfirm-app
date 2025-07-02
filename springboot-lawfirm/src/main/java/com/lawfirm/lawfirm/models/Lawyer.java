@@ -9,7 +9,8 @@ public class Lawyer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    
+    private Long id;
+
     private String name;
     private String contact;
     private String email;
@@ -17,6 +18,13 @@ public class Lawyer {
     private int experience;
 
     // Getters and Setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
 
@@ -31,4 +39,8 @@ public class Lawyer {
 
     public int getExperience() { return experience; }
     public void setExperience(int experience) { this.experience = experience; }
+     @Override
+    public String toString() {
+        return String.valueOf(id); // or return name if preferred
+    }
 }
