@@ -2,6 +2,9 @@ package com.lawfirm.lawfirm.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import com.lawfirm.lawfirm.repository.AppointmentRepository; // Ensure you have this repository
 import com.lawfirm.lawfirm.models.Appointment;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +21,7 @@ public class AppointmentController {
 
     @PostMapping("/add-appointment")
     public String addAppointment(@ModelAttribute Appointment appointment) {
-        // TODO: Save to DB
+        // appointmentRepository.save(appointment); // ✅ Correct usage       
         System.out.println("Appointment added: Client ID " + appointment.getClientId() +
                 ", Lawyer ID " + appointment.getLawyerId());
 
