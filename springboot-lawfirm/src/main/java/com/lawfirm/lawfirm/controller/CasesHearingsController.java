@@ -1,33 +1,65 @@
 package com.lawfirm.lawfirm.controller;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import com.lawfirm.lawfirm.models.Case;
+import com.lawfirm.lawfirm.models.LegalCase;
 import com.lawfirm.lawfirm.models.Hearing;
+import com.lawfirm.lawfirm.repository.CaseRepository;
+import com.lawfirm.lawfirm.repository.HearingRepository;
+import com.lawfirm.lawfirm.repository.ClientRepository;
+import com.lawfirm.lawfirm.repository.LawyerRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class CasesHearingsController {
 
+    @Autowired
+    private CaseRepository caseRepository;
+
+    @Autowired
+    private HearingRepository hearingRepository;
+
+    @Autowired
+    private ClientRepository clientRepository;
+    @Autowired
+    private LawyerRepository lawyerRepository;
+
     @GetMapping("/cases-hearings")
     public String showCasesAndHearingsForm(Model model) {
-        model.addAttribute("case", new Case());
+        model.addAttribute("legalCase", new LegalCase());
         model.addAttribute("hearing", new Hearing());
-        return "cases_hearings"; // Your HTML file
+        model.addAttribute("clients", clientRepository.findAll());
+        model.addAttribute("lawyers", lawyerRepository.findAll());
+        model.addAttribute("cases", caseRepository.findAll());
+        return "cases_hearings";
     }
 
     @PostMapping("/add-case")
-    public String addCase(@ModelAttribute("case") Case newCase) {
-        System.out.println("Case added for client: " + newCase.getClientId());
-        // Save to DB later
+    public String addCase(@ModelAttribute("legalCase") LegalCase newCase,
+            @RequestParam("client.id") Long clientId,
+            @RequestParam("lawyer.id") Long lawyerId) {
+
+        newCase.setClient(clientRepository.findById(clientId).orElse(null));
+        newCase.setLawyer(lawyerRepository.findById(lawyerId).orElse(null));
+
+        caseRepository.save(newCase);
+
+        System.out.println("✅ Case added for client ID: " + clientId);
         return "redirect:/cases-hearings";
     }
 
     @PostMapping("/add-hearing")
-    public String addHearing(@ModelAttribute("hearing") Hearing newHearing) {
-        System.out.println("Hearing added for case ID: " + newHearing.getCaseId());
-        // Save to DB later
+    public String addHearing(@ModelAttribute("hearing") Hearing newHearing,
+            @RequestParam("hearingCase") Long caseId) {
+        LegalCase selectedCase = caseRepository.findById(caseId).orElse(null);
+        if (selectedCase == null) {
+            return "redirect:/cases-hearings?error=invalidCase";
+        }
+
+        newHearing.setHearingCase(selectedCase);
+        hearingRepository.save(newHearing);
         return "redirect:/cases-hearings";
     }
+
 }

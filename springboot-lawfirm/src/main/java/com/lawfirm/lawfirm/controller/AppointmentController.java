@@ -1,5 +1,6 @@
 package com.lawfirm.lawfirm.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -7,11 +8,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import com.lawfirm.lawfirm.repository.AppointmentRepository; // Ensure you have this repository
 import com.lawfirm.lawfirm.models.Appointment;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
 
 
 @Controller
 public class AppointmentController {
+    @Autowired
+    private AppointmentRepository appointmentRepository;
 
     @GetMapping("/appointments")
     public String showAppointmentForm(Model model) {
@@ -21,17 +23,17 @@ public class AppointmentController {
 
     @PostMapping("/add-appointment")
     public String addAppointment(@ModelAttribute Appointment appointment) {
-        // appointmentRepository.save(appointment); // ✅ Correct usage       
+        appointmentRepository.save(appointment); // ✅ Correct usage       
         System.out.println("Appointment added: Client ID " + appointment.getClientId() +
                 ", Lawyer ID " + appointment.getLawyerId());
 
         return "redirect:/appointments"; // redirect to the form page again
     }
 
-    @GetMapping("/appointments-report")
-    public String viewReport() {
-        // TODO: Display appointment report
-        return "appointments_report"; // you can create this page later
-    }
+    // @GetMapping("/appointments-report")
+    // public String viewReport() {
+    //     // TODO: Display appointment report
+    //     return "appointments_report"; // you can create this page later
+    // }
 }
 
