@@ -18,7 +18,6 @@ public class ClientsLawyersController {
     @Autowired
     private LawyerRepository lawyerRepository;
 
-
     @GetMapping("/clients-lawyers")
     public String showClientsAndLawyersPage(Model model) {
         model.addAttribute("client", new Client());
@@ -31,6 +30,12 @@ public class ClientsLawyersController {
         clientRepository.save(client); // ✅ Correct usage
         System.out.println("Client added: " + client.getName());
         return "redirect:/clients-lawyers";
+    }
+
+    @GetMapping("/clients-report")
+    public String viewClientsReport(Model model) {
+        model.addAttribute("clients", clientRepository.findAll()); // Fetch all clients
+        return "clients_report"; // Must match the file name in templates/
     }
 
     @PostMapping("/add-lawyer")
