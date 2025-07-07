@@ -30,6 +30,12 @@ public class AppointmentController {
         return "redirect:/appointments"; // redirect to the form page again
     }
 
+    @GetMapping("/appointments-report")
+    public String viewAppointmentsReport(Model model) {
+        model.addAttribute("appointment", appointmentRepository.findAll()); // Fetch all clients
+        return "appointment_report"; // Must match the file name in templates/
+    }
+
     // @GetMapping("/appointments-report")
     // public String viewReport() {
     //     // TODO: Display appointment report

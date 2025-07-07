@@ -44,4 +44,10 @@ public class ClientsLawyersController {
         System.out.println("Lawyer added: " + lawyer.getName());
         return "redirect:/clients-lawyers";
     }
+
+    @GetMapping("/lawyers-report")
+    public String viewLawyerssReport(Model model) {
+        model.addAttribute("lawyers", lawyerRepository.findAll()); // Fetch all clients
+        return "lawyers_report"; // Must match the file name in templates/
+    }
 }

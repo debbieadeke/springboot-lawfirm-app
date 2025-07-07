@@ -49,6 +49,12 @@ public class CasesHearingsController {
         return "redirect:/cases-hearings";
     }
 
+    @GetMapping("/cases-report")
+    public String viewCasesReport(Model model) {
+        model.addAttribute("cases", caseRepository.findAll()); // Fetch all clients
+        return "cases_report"; // Must match the file name in templates/
+    }
+
     @PostMapping("/add-hearing")
     public String addHearing(@ModelAttribute("hearing") Hearing newHearing,
             @RequestParam("hearingCase") Long caseId) {
@@ -60,6 +66,12 @@ public class CasesHearingsController {
         newHearing.setHearingCase(selectedCase);
         hearingRepository.save(newHearing);
         return "redirect:/cases-hearings";
+    }
+
+    @GetMapping("/hearings-report")
+    public String viewHearingssReport(Model model) {
+        model.addAttribute("hearings", hearingRepository.findAll()); // Fetch all clients
+        return "hearings_report"; // Must match the file name in templates/
     }
 
 }
