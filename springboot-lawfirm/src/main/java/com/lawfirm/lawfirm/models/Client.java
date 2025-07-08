@@ -16,47 +16,31 @@ public class Client {
     private String address;
 
     // Getters and Setters
-    public Long getId() {
-        return id;
-    }
+    public Long getId() { return id; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public void setId(Long id) { this.id = id; }
 
-    public String getName() {
-        return name;
-    }
+    public String getName() { return name; }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    public void setName(String name) { this.name = name; }
 
-    public String getContact() {
-        return contact;
-    }
+    public String getContact() { return contact; }
 
-    public void setContact(String contact) {
-        this.contact = contact;
-    }
+    public void setContact(String contact) { this.contact = contact; }
 
-    public String getEmail() {
-        return email;
-    }
+    public String getEmail() { return email; }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getAddress() {
+    public void setEmail(String email) { this.email = email; }
+    public String getAddress() { // ✅ Make sure getter matches the type
         return address;
     }
 
     public void setAddress(String address) {
         this.address = address;
     }
-     @Override
+
+    @Override
     public String toString() {
-        return String.valueOf(id); // or return name if preferred
+        return name + " (ID: " + id + ")";
     }
 }

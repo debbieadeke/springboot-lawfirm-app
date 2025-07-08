@@ -17,21 +17,21 @@
 <body>
   <!-- Navigation Bar -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
-    <div class="container">
-      <a class="navbar-brand" th:href="@{/}"><i class="bi bi-building"></i> Law Firm</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><a class="nav-link" th:href="@{/}">Home</a></li>
-          <li class="nav-item"><a class="nav-link" th:href="@{/clients-lawyers}">Clients & Lawyers</a></li>
-          <li class="nav-item"><a class="nav-link" th:href="@{/cases-hearings}">Cases & Hearings</a></li>
-          <li class="nav-item"><a class="nav-link active" th:href="@{/appointments}">Appointments</a></li>
-        </ul>
-      </div>
-    </div>
+        <div class="container">
+            <a class="navbar-brand" th:href="@{/}"><i class="bi bi-building"></i> Law Firm</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" th:href="@{/}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/clients-lawyers}">Clients & Lawyers</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/cases-hearings}">Cases & Hearings</a></li>
+                    <li class="nav-item"><a class="nav-link active" th:href="@{/appointments}">Appointments</a></li>
+                </ul>
+            </div>
+        </div>
   </nav>
 
   <!-- Page Header -->
@@ -51,13 +51,19 @@
     <h2 class="text-center">Add New Appointment</h2>
     <form th:action="@{/add-appointment}" method="post" th:object="${appointment}">
       <div class="mb-3">
-        <label for="clientid" class="form-label">Client ID</label>
-        <input type="number" class="form-control" id="clientid" th:field="*{clientId}" required />
+        <label>Client</label>
+        <select th:field="*{client}" class="form-select" required>
+          <option value="" disabled selected>Select client</option>
+          <option th:each="client : ${clients}" th:value="${client.id}" th:text="${client.name}">Client Name</option>
+        </select>
       </div>
 
       <div class="mb-3">
-        <label for="lawyerid" class="form-label">Lawyer ID</label>
-        <input type="number" class="form-control" id="lawyerid" th:field="*{lawyerId}" required />
+        <label>Lawyer</label>
+        <select th:field="*{lawyer}" class="form-select" required>
+          <option value="" disabled selected>Select lawyer</option>
+          <option th:each="lawyer : ${lawyers}" th:value="${lawyer.id}" th:text="${lawyer.name}">Lawyer Name</option>
+        </select>
       </div>
 
       <div class="mb-3">

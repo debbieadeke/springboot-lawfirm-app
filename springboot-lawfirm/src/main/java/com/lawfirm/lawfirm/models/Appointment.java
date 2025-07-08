@@ -4,20 +4,26 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
+@Table(name = "appointments")
 public class Appointment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; // This is the unique identifier (primary key)
+    private Long id;
 
-    private int clientId;
-    private int lawyerId;
+    @ManyToOne
+    @JoinColumn(name = "client_id", nullable = false)
+    private Client client;
+
+    @ManyToOne
+    @JoinColumn(name = "lawyer_id", nullable = false)
+    private Lawyer lawyer;
+
     private LocalDate appointmentDate;
     private String purpose;
     private String status;
 
     // Getters and Setters
-
     public Long getId() {
         return id;
     }
@@ -26,20 +32,20 @@ public class Appointment {
         this.id = id;
     }
 
-    public int getClientId() {
-        return clientId;
+    public Client getClient() {
+        return client;
     }
 
-    public void setClientId(int clientId) {
-        this.clientId = clientId;
+    public void setClient(Client client) {
+        this.client = client;
     }
 
-    public int getLawyerId() {
-        return lawyerId;
+    public Lawyer getLawyer() {
+        return lawyer;
     }
 
-    public void setLawyerId(int lawyerId) {
-        this.lawyerId = lawyerId;
+    public void setLawyer(Lawyer lawyer) {
+        this.lawyer = lawyer;
     }
 
     public LocalDate getAppointmentDate() {

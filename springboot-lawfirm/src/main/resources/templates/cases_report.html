@@ -27,25 +27,17 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/}">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" th:href="@{/clients-lawyers}">Clients & Lawyers</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/cases-hearings}">Cases & Hearings</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/appointments}">Appointments</a>
-                    </li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/clients-lawyers}">Clients & Lawyers</a></li>
+                    <li class="nav-item"><a class="nav-link active" th:href="@{/cases-hearings}">Cases Reports</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/appointments}">Appointments</a></li>
                 </ul>
             </div>
         </div>
-    </nav>
+  </nav>
     <div class="container my-5">
         <h2 class="text-center mb-4">Cases Report</h2>
-        <a th:href="@{/clients-lawyers}" class="btn btn-primary mb-3">
+        <a th:href="@{/cases-hearings}" class="btn btn-primary mb-3">
             <i class="bi bi-arrow-left"></i> Back
         </a>
 
@@ -63,21 +55,22 @@
                 </thead>
                 <tbody>
                     <tr th:each="case : ${cases}">
-                        <td th:text="${client.id}">1</td>
-                        <td th:text="${lawyer.id}">Jane Doe</td>
-                        <td th:text="${case.details}">0712345678</td>
-                        <td th:text="${case.status}">Corporate Law</td>
-                        <td th:text="${case.filingDate}">5</td>
-                        <td th:text="${case.closingDate}">5</td>
+                        <td th:text="${case.client.name}">Client Name</td>
+                        <td th:text="${case.lawyer.name}">Lawyer Name</td>
+                        <td th:text="${case.caseDetails}">Case Details</td>
+                        <td th:text="${case.status}">Case Status</td>
+                        <td th:text="${case.filingDate}">Filing Date</td>
+                        <td th:text="${case.closingDate}">Closing Date</td>
                     </tr>
+
                 </tbody>
             </table>
         </div>
     </div>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+    </tr>
+    </tbody>
+    </table>
+    </div>
     </div>
 
     <footer class="bg-dark text-white text-center py-3">
