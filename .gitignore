@@ -1,35 +1,58 @@
-# Maven
+# ===== ENV & SECRETS =====
+.env
+*.env
+springboot-lawfirm/src/main/resources/application.properties
+springboot-lawfirm/src/main/java/com/lawfirm/lawfirm/config/UserInitializer.java
+
+# ===== MAVEN =====
 /target/
 !.mvn/wrapper/maven-wrapper.jar
 **/logs/
 **/*.log
-
-# IntelliJ / VSCode
-.idea/
-.vscode/
-*.iml
-
-# OS
-.DS_Store
-Thumbs.db
-
-# Environment
-.env
-*.env
-
-# Docker
-**/docker-data/
-**/db_data/
-**/tmp/
-**/.docker/
-
-# Node & Frontend (if used)
-/node_modules/
-dist/
-
-# Others
 *.class
 *.jar
 *.war
 *.zip
 *.tar.gz
+
+# ===== IDE FILES =====
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+
+# ===== STS (Spring Tool Suite) =====
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+# ===== NETBEANS =====
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+# ===== DOCKER =====
+**/docker-data/
+**/db_data/
+**/tmp/
+**/.docker/
+
+# ===== NODE.JS (if frontend used) =====
+/node_modules/
+dist/
+
+# ===== VSCODE =====
+.vscode/
+
+# ===== HELPER FILES =====
+HELP.md

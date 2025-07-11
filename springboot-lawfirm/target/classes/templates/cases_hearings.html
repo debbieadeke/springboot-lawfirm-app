@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+  <title>Law Firm Management</title>
+
+  <!-- Bootstrap CSS -->
+  <link th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css}" rel="stylesheet" />
+  <link th:href="@{https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css}" rel="stylesheet" />
+
+  <!-- Custom CSS -->
+  <link th:href="@{/css/index.css}" rel="stylesheet" />
+</head>
+
+<body>
+  <!-- Navigation Bar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" th:href="@{/}"><i class="bi bi-building"></i> Law Firm</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" th:href="@{/}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/clients-lawyers}">Clients & Lawyers</a></li>
+                    <li class="nav-item"><a class="nav-link active" th:href="@{/cases-hearings}">Cases & Hearings</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/appointments}">Appointments</a></li>
+                </ul>
+            </div>
+        </div>
+  </nav>
+
+  <!-- Page Header -->
+  <header class="bg-primary text-white text-center py-4">
+    <div class="container">
+      <h1><i class="bi bi-folder2-open"></i> Cases & Hearings</h1>
+      <p>
+        Tracking ongoing and past legal cases along with court hearing
+        details.
+      </p>
+    </div>
+  </header>
+
+  <section class="container my-5">
+    <h2 class="text-center">Add New Case</h2>
+    <form th:action="@{/add-case}" method="post" th:object="${legalCase}">
+      <div class="mb-3">
+        <label for="client" class="form-label">Client</label>
+        <select class="form-control" id="client" th:field="*{client.id}" required>
+          <option value="" disabled selected>Select a client</option>
+          <option th:each="c : ${clients}" th:value="${c.id}" th:text="${c.name} + ' (ID: ' + ${c.id} + ')'"></option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label for="lawyer" class="form-label">Lawyer</label>
+        <select class="form-control" id="lawyer" th:field="*{lawyer.id}" required>
+          <option value="" disabled selected>Select a lawyer</option>
+          <option th:each="l : ${lawyers}" th:value="${l.id}" th:text="${l.name} + ' (ID: ' + ${l.id} + ')'"></option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label for="casedetails" class="form-label">Case Type</label>
+        <input type="text" class="form-control" id="casedetails" th:field="*{caseDetails}" />
+      </div>
+
+      <div class="mb-3">
+        <label for="status" class="form-label">Case Status</label>
+        <select class="form-control" id="status" th:field="*{status}" required>
+          <option value="open">Open</option>
+          <option value="closed">Closed</option>
+          <option value="pending">Pending</option>
+        </select>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label for="filingdate" class="form-label">Filing Date</label>
+          <input type="date" class="form-control" id="filingdate" th:field="*{filingDate}" />
+        </div>
+        <div class="col-md-6">
+          <label for="closingdate" class="form-label">Closing Date</label>
+          <input type="date" class="form-control" id="closingdate" th:field="*{closingDate}" />
+        </div>
+      </div>
+
+      <div class="row g-2">
+        <div class="col-12 col-md-6 d-grid">
+          <button type="submit" class="btn btn-primary">Add Case</button>
+        </div>
+        <div class="col-12 col-md-6 d-grid">
+          <a th:href="@{/cases-report}" class="btn btn-primary">View Report</a>
+        </div>
+      </div>
+    </form>
+  </section>
+
+  <section class="container my-5">
+    <h2 class="text-center">Add New Hearing</h2>
+    <form th:action="@{/add-hearing}" method="post" th:object="${hearing}">
+      <div class="mb-3">
+        <label for="hearingCase" class="form-label">Case</label>
+        <select class="form-control" th:field="*{hearingCase}" required>
+          <option value="" disabled selected>Select a case</option>
+          <option th:each="c : ${cases}" th:value="${c.caseId}"
+            th:text="${c.caseDetails} + ' (Client: ' + ${c.client.name} + ')'">
+          </option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label for="hearingdate" class="form-label">Hearing Date</label>
+        <input type="date" class="form-control" id="hearingdate" th:field="*{hearingDate}" required />
+      </div>
+
+      <div class="mb-3">
+        <label for="judgename" class="form-label">Judge Name</label>
+        <input type="text" class="form-control" id="judgename" th:field="*{judgeName}" />
+      </div>
+
+      <div class="mb-3">
+        <label for="courtlocation" class="form-label">Court Location</label>
+        <input type="text" class="form-control" id="courtlocation" th:field="*{courtLocation}" />
+      </div>
+
+      <div class="mb-3">
+        <label for="outcome" class="form-label">Case Outcome</label>
+        <select class="form-control" id="outcome" th:field="*{outcome}" required>
+          <option value="pending">Pending</option>
+          <option value="closed">Settled</option>
+        </select>
+      </div>
+
+      <div class="row g-2">
+        <div class="col-12 col-md-6 d-grid">
+          <button type="submit" class="btn btn-primary">Add Hearing</button>
+        </div>
+        <div class="col-12 col-md-6 d-grid">
+          <a th:href="@{/hearings-report}" class="btn btn-primary">View Report</a>
+        </div>
+      </div>
+
+    </form>
+
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-white text-center py-3">
+    <p>
+      &copy; <span th:text="${T(java.time.Year).now()}"></span> Law Firm. All
+      Rights Reserved.
+    </p>
+  </footer>
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer></script>
+</body>
+
+</html>
