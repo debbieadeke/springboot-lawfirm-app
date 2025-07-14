@@ -59,29 +59,59 @@
         </a>
 
         <form th:action="@{'/lawyers/update/' + ${lawyer.id}}" th:object="${lawyer}" method="post">
-            <div class="mb-3">
-                <label class="form-label">Name</label>
-                <input type="text" th:field="*{name}" class="form-control" required>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">First Name</label>
+                        <input type="text" class="form-control" id="firstname" th:field="*{firstName}" required />
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Last Name</label>
+                        <input type="text" class="form-control" id="lastname" th:field="*{lastName}" required />
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Bar Number</label>
+                        <input type="text" class="form-control" id="barnumber" th:field="*{barNumber}" required />
+                    </div>
+                </div>
             </div>
 
-            <div class="mb-3">
-                <label class="form-label">Email</label>
-                <input type="email" th:field="*{email}" class="form-control" required>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="contact" class="form-label">Contact</label>
+                        <input type="text" class="form-control" id="contact" th:field="*{contact}" required />
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" th:field="*{email}" required />
+                    </div>
+                </div>
             </div>
 
-            <div class="mb-3">
-                <label class="form-label">Contact</label>
-                <input type="text" th:field="*{contact}" class="form-control" required>
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">Specialization</label>
-                <input type="text" th:field="*{specialization}" class="form-control" required>
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">Experience (Years)</label>
-                <input type="number" min="0" th:field="*{experience}" class="form-control" required>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="specialization" class="form-label">Specialization</label>
+                        <input type="text" class="form-control" id="specialization" th:field="*{specialization}"
+                            required />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="experience" class="form-label">Year of Admission</label>
+                        <input type="number" class="form-control" id="experience" th:field="*{experience}" required />
+                    </div>
+                </div>
             </div>
 
             <button type="submit" class="btn btn-success">

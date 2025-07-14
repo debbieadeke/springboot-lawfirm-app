@@ -10,13 +10,16 @@ public class Lawyer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    private String firstName;
+    private String lastName;
+    private String barNumber;
     private String contact;
     private String email;
     private String specialization;
     private int experience;
 
     // Getters and Setters
+
     public Long getId() {
         return id;
     }
@@ -25,28 +28,64 @@ public class Lawyer {
         this.id = id;
     }
 
-    public String getName() { return name; }
+    public String getFirstName() {
+        return firstName;
+    }
 
-    public void setName(String name) { this.name = name; }
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-    public String getContact() { return contact; }
+    public String getLastName() {
+        return lastName;
+    }
 
-    public void setContact(String contact) { this.contact = contact; }
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-    public String getEmail() { return email; }
+    public String getBarNumber() {
+        return barNumber;
+    }
 
-    public void setEmail(String email) { this.email = email; }
+    public void setBarNumber(String barNumber) {
+        this.barNumber = barNumber;
+    }
 
-    public String getSpecialization() { return specialization; }
+    public String getContact() {
+        return contact;
+    }
 
-    public void setSpecialization(String specialization) { this.specialization = specialization; }
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
 
-    public int getExperience() { return experience; }
+    public String getEmail() {
+        return email;
+    }
 
-    public void setExperience(int experience) { this.experience = experience; }
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getSpecialization() {
+        return specialization;
+    }
+
+    public void setSpecialization(String specialization) {
+        this.specialization = specialization;
+    }
+
+    public int getExperience() {
+        return experience;
+    }
+
+    public void setExperience(int experience) {
+        this.experience = experience;
+    }
 
     @Override
     public String toString() {
-        return name + " (ID: " + id + ")";
+        return firstName + " " + lastName + " (ID: " + id + ")";
     }
 }

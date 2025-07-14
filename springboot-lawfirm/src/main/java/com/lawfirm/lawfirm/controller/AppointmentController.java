@@ -36,7 +36,7 @@ public class AppointmentController {
     public String addAppointment(@ModelAttribute Appointment appointment) {
         appointmentRepository.save(appointment);
         System.out.println("Appointment added for client: " + appointment.getClient().getName() +
-                " and lawyer: " + appointment.getLawyer().getName());
+                " and lawyer: " + appointment.getLawyer().getFirstName() + " " + appointment.getLawyer().getLastName());
 
         return "redirect:/appointments";
     }

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 @Controller
 public class ClientsLawyersController {
@@ -41,8 +42,17 @@ public class ClientsLawyersController {
     @PostMapping("/add-lawyer")
     public String addLawyer(@ModelAttribute Lawyer lawyer) {
         lawyerRepository.save(lawyer); // ✅ Correct usage
-        System.out.println("Lawyer added: " + lawyer.getName());
+        System.out.println("Lawyer added: " + lawyer.getFirstName() + " " + lawyer.getLastName());
         return "redirect:/clients-lawyers";
+    }
+
+    @GetMapping("/lawyers/search")
+    public String searchLawyers(@RequestParam("keyword") String keyword, Model model) {
+        List<Lawyer> lawyers = lawyerRepository
+                .findByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCaseOrBarNumberContainingIgnoreCase(
+                        keyword, keyword, keyword);
+        model.addAttribute("lawyers", lawyers);
+        return "lawyers_report"; // your HTML template name
     }
 
     @GetMapping("/lawyers-report")
@@ -74,7 +84,9 @@ public class ClientsLawyersController {
                 .orElseThrow(() -> new IllegalArgumentException("Invalid lawyer Id:" + id));
 
         // Update fields
-        lawyer.setName(updatedLawyer.getName());
+        lawyer.setFirstName(updatedLawyer.getFirstName());
+        lawyer.setLastName(updatedLawyer.getLastName());
+        lawyer.setBarNumber(updatedLawyer.getBarNumber());
         lawyer.setEmail(updatedLawyer.getEmail());
         lawyer.setContact(updatedLawyer.getContact());
         lawyer.setExperience(updatedLawyer.getExperience());
