@@ -29,7 +29,7 @@ public class ClientsLawyersController {
     @PostMapping("/add-client")
     public String addClient(@ModelAttribute Client client) {
         clientRepository.save(client); // ✅ Correct usage
-        System.out.println("Client added: " + client.getName());
+        System.out.println("Client added: " + client.getFirstName() + " " + client.getLastName());
         return "redirect:/clients-lawyers";
     }
 
@@ -96,4 +96,53 @@ public class ClientsLawyersController {
         return "redirect:/lawyers-report";
     }
 
+
+     @GetMapping("/clients/search")
+    public String searchClientss(@RequestParam("keyword") String keyword, Model model) {
+        List<Client> clients = clientRepository
+                .findByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCase(
+                        keyword, keyword);
+        model.addAttribute("clients", clients);
+        return "clients_report"; // your HTML template name
+    }
+
+    // @GetMapping("/clients-report")
+    // public String viewClientsReport(Model model) {
+    //     model.addAttribute("clients", clientRepository.findAll()); // Fetch all clients
+    //     return "clients_report"; // Must match the file name in templates/
+    // }
+
+    // DELETE a lawyer
+    @GetMapping("/clients/delete/{id}")
+    public String deleteClient(@PathVariable Long id) {
+        clientRepository.deleteById(id);
+        return "redirect:/clients-report";
+    }
+
+    // SHOW the edit form
+    @GetMapping("/clients/edit/{id}")
+    public String showEditClientForm(@PathVariable Long id, Model model) {
+        Client client = clientRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid client Id:" + id));
+        model.addAttribute("client", client);
+        return "edit_client"; // This is the HTML page you'll create
+    }
+
+    // PROCESS the update
+    @PostMapping("/clients/update/{id}")
+    public String updateClient(@PathVariable Long id, @ModelAttribute("client") Client updatedClient) {
+        Client client = clientRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid client Id:" + id));
+
+        // Update fields
+        client.setFirstName(updatedClient.getFirstName());
+        client.setLastName(updatedClient.getLastName());
+        client.setEmail(updatedClient.getEmail());
+        client.setContact(updatedClient.getContact());
+        client.setAddress(updatedClient.getAddress());
+        clientRepository.save(client);
+        return "redirect:/clients-report";
+    }
+
 }
+

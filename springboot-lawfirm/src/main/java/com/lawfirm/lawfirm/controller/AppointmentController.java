@@ -35,7 +35,9 @@ public class AppointmentController {
     @PostMapping("/add-appointment")
     public String addAppointment(@ModelAttribute Appointment appointment) {
         appointmentRepository.save(appointment);
-        System.out.println("Appointment added for client: " + appointment.getClient().getName() +
+        System.out.println("Appointment added for client: " + appointment.getClient().getFirstName() + " "
+                + appointment.getClient().getLastName() +
+
                 " and lawyer: " + appointment.getLawyer().getFirstName() + " " + appointment.getLawyer().getLastName());
 
         return "redirect:/appointments";

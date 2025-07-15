@@ -10,27 +10,53 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    private String firstName;
+    private String lastName;
     private String contact;
     private String email;
     private String address;
 
     // Getters and Setters
-    public Long getId() { return id; }
+    public Long getId() {
+        return id;
+    }
 
-    public void setId(Long id) { this.id = id; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public String getName() { return name; }
+    public String getFirstName() {
+        return firstName;
+    }
 
-    public void setName(String name) { this.name = name; }
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-    public String getContact() { return contact; }
+    public String getLastName() {
+        return lastName;
+    }
 
-    public void setContact(String contact) { this.contact = contact; }
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-    public String getEmail() { return email; }
+    public String getContact() {
+        return contact;
+    }
 
-    public void setEmail(String email) { this.email = email; }
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getAddress() { // ✅ Make sure getter matches the type
         return address;
     }
@@ -41,6 +67,7 @@ public class Client {
 
     @Override
     public String toString() {
-        return name + " (ID: " + id + ")";
+        return firstName + " " + lastName + " (ID: " + id + ")";
     }
+
 }
