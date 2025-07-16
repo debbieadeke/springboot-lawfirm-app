@@ -55,6 +55,41 @@ public class CasesHearingsController {
         return "cases_report"; // Must match the file name in templates/
     }
 
+
+     @GetMapping("/cases/delete/{id}")
+    public String deleteCase(@PathVariable Long id) {
+        caseRepository.deleteById(id);
+        return "redirect:/cases-report";
+    }
+
+    // SHOW the edit form
+    @GetMapping("/cases/edit/{id}")
+    public String showEditCaseForm(@PathVariable Long id, Model model) {
+        LegalCase legalcase = caseRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid case Id:" + id));
+        model.addAttribute("case", legalcase);
+        return "edit_case"; // This is the HTML page you'll create
+    }
+
+    // PROCESS the update
+    @PostMapping("/cases/update/{id}")
+    public String updateCase(@PathVariable Long id, @ModelAttribute("case") LegalCase updatedCase) {
+        LegalCase legalCase = caseRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid case Id:" + id));
+
+        // Update fields
+        legalCase.setCaseDetails(updatedCase.getCaseDetails());
+        legalCase.setStatus(updatedCase.getStatus());
+        legalCase.setFilingDate(updatedCase.getFilingDate());
+        legalCase.setClosingDate(updatedCase.getClosingDate());
+        // legalCase.setAddress(updatedCase.getAddress());
+        caseRepository.save(legalCase);
+        return "redirect:/cases-report";
+    }
+
+
+
+
     @PostMapping("/add-hearing")
     public String addHearing(@ModelAttribute("hearing") Hearing newHearing,
             @RequestParam("hearingCase") Long caseId) {
