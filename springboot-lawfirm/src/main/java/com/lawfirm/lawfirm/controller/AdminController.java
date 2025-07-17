@@ -57,13 +57,17 @@ public class AdminController {
      @GetMapping("/add-case")
     public String showAddCaseForm(Model model) {
         model.addAttribute("case", new LegalCase());
+        model.addAttribute("clients", clientRepository.findAll());
+        model.addAttribute("lawyers", lawyerRepository.findAll());
         return "add_case"; 
     }
 
     @PostMapping("/save-case")
-    public String saveClient(@ModelAttribute LegalCase legalcase) {
+    public String saveCase(@ModelAttribute LegalCase legalcase) {
         caseRepository.save(legalcase);
+        
         return "redirect:/admin/dashboard";
     }
+    
 }
 

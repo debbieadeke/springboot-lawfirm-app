@@ -69,19 +69,19 @@
                                     </option>
                                 </select>
                             </div>
+                        </div>
 
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="lawyer" class="form-label">Lawyer</label>
-                                    <select class="form-control" id="lawyer" th:field="*{lawyer.id}" required>
-                                        <option value="" disabled selected>Select a lawyer</option>
-                                        <!-- <option th:each="l : ${lawyers}" th:value="${l.id}"
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="lawyer" class="form-label">Lawyer</label>
+                                <select class="form-control" id="lawyer" th:field="*{lawyer.id}" required>
+                                    <option value="" disabled selected>Select a lawyer</option>
+                                    <!-- <option th:each="l : ${lawyers}" th:value="${l.id}"
                                             th:text="${l.name} + ' (ID: ' + ${l.id} + ')'"></option> -->
-                                        <option th:each="l : ${lawyers}" th:value="${l.id}"
-                                            th:text="${l.firstName + ' ' + l.lastName + ' (ID: ' + l.id + ')'}">
-                                        </option>
-                                    </select>
-                                </div>
+                                    <option th:each="l : ${lawyers}" th:value="${l.id}"
+                                        th:text="${l.firstName + ' ' + l.lastName + ' (ID: ' + l.id + ')'}">
+                                    </option>
+                                </select>
                             </div>
                         </div>
                     </div>
