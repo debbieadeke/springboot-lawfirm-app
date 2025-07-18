@@ -98,7 +98,7 @@ public class CasesHearingsController {
             return "redirect:/cases-hearings?error=invalidCase";
         }
 
-        newHearing.setHearingCase(selectedCase);
+        newHearing.setLegalCase(selectedCase);
         hearingRepository.save(newHearing);
         return "redirect:/cases-hearings";
     }

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+    <title>Law Firm Management</title>
+
+    <!-- Bootstrap CSS -->
+    <link th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css}" rel="stylesheet" />
+    <link th:href="@{https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css}" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    <link th:href="@{/css/index.css}" rel="stylesheet" />
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" th:href="@{/}"><i class="bi bi-building"></i> Law Firm</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link active" th:href="@{/}">Home</a></li>
+                    <!-- <li class="nav-item"><a class="nav-link" th:href="@{/clients-lawyers}">Clients & Lawyers</a></li> -->
+                    <!-- <li class="nav-item"><a class="nav-link" th:href="@{/cases-hearings}">Cases & Hearings</a></li> -->
+                    <!-- <li class="nav-item"><a class="nav-link" th:href="@{/appointments}">Appointments</a></li> -->
+                    <!-- <li class="nav-item"><a class="nav-link" th:href="@{/login}">Login</a></li> -->
+                    <li class="nav-item"><a class="nav-link" th:href="@{/logout}">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="d-flex">
+        <div th:replace="fragments/adminsidebar :: adminsidebar"></div>
+        <div class="flex-grow-1" style="margin-left: 250px;">
+            <div class="container py-4">
+                <div class="d-flex justify-content-between align-items-center mb-2 mt-4">
+                    <a th:href="@{/admin/dashboard}" class="btn btn-primary">
+                        <i class="bi bi-arrow-left"></i> Back
+                    </a>
+
+                    <!-- <form class="d-flex align-items-center" th:action="@{/lawyers/search}" method="get">
+                <input type="text" name="keyword" class="form-control form-control-sm me-2" style="width: 300px;"
+                    placeholder="Search by name or bar number..." required />
+                <button type="submit" class="btn btn-sm btn-outline-primary">
+                    <i class="bi bi-search"></i> Search
+                </button>
+            </form> -->
+                </div>
+            </div>
+            <div class="container mt-3">
+                <h2 class="text-center mb-4">Add New Hearing</h2>
+
+                <form th:action="@{/admin/save-case}" method="post" th:object="${case}">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="hearingDate" class="form-label">Hearing Date</label>
+                                <input type="date" class="form-control" id="hearingDate" th:field="*{hearingDate}"
+                                    required>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="judgeName" class="form-label">Judge Name</label>
+                                <input type="text" class="form-control" id="judgeName" th:field="*{judgeName}"
+                                    placeholder="Judge's Name" required>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="courtLocation" class="form-label">Court Location</label>
+                                <input type="text" class="form-control" id="courtLocation" th:field="*{courtLocation}"
+                                    placeholder="e.g. Nairobi Law Courts" required>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="outcome" class="form-label">Outcome</label>
+                                <input type="text" class="form-control" id="outcome" th:field="*{outcome}"
+                                    placeholder="e.g. Adjourned, Closed, etc.">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="mb-3">
+                                <label for="hearingCase" class="form-label">Select Case</label>
+                                <select class="form-select" id="hearingCase" name="hearingCase" required>
+                                    <option value="" disabled selected>Select a Case</option>
+                                    <option th:each="c : ${cases}" th:value="${c.id}"
+                                        th:text="${c.title + ' (Client: ' + c.client.firstName + ' ' + c.client.lastName + ', Lawyer: ' + c.lawyer.firstName + ' ' + c.lawyer.lastName + ')'}">
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row g-2 mb-3">
+                        <div class="col-12 col-md-6 d-grid">
+                            <button type="submit" class="btn btn-primary">Add Hearing</button>
+                        </div>
+                        <div class="col-12 col-md-6 d-grid">
+                            <a th:href="@{/admin/dashboard}" class="btn btn-primary">Back to Dasboard</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <footer class="bg-dark text-white text-center py-3">
+        <p>
+            &copy; <span th:text="${T(java.time.Year).now()}"></span> Law Firm. All
+            Rights Reserved.
+        </p>
+    </footer>
+
+
+    <script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js}" defer></script>
+</body>
+
+</html>
