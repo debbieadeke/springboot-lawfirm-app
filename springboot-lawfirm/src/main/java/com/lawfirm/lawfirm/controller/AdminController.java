@@ -10,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import com.lawfirm.lawfirm.repository.LawyerRepository;
 import com.lawfirm.lawfirm.repository.CaseRepository;
+import com.lawfirm.lawfirm.models.Hearing;
+import com.lawfirm.lawfirm.repository.HearingRepository;
 
 @Controller
 @RequestMapping("/admin")
@@ -23,6 +25,8 @@ public class AdminController {
     @Autowired
     private CaseRepository caseRepository; // Assuming you have a CaseRepository for managing cases
 
+    @Autowired
+    private HearingRepository hearingRepository; 
 
 
     @GetMapping("/dashboard")
@@ -66,6 +70,18 @@ public class AdminController {
     public String saveCase(@ModelAttribute LegalCase legalcase) {
         caseRepository.save(legalcase);
         
+        return "redirect:/admin/dashboard";
+    }
+
+    @GetMapping("/add-hearing")
+    public String showAddHearingForm(Model model) {
+        model.addAttribute("hearing", new Hearing());
+        return "add_hearing"; 
+    }
+
+    @PostMapping("/save-hearing")
+    public String saveHearing(@ModelAttribute Hearing hearing) {
+        hearingRepository.save(hearing);
         return "redirect:/admin/dashboard";
     }
     

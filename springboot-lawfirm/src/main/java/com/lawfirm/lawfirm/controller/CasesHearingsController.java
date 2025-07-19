@@ -55,8 +55,7 @@ public class CasesHearingsController {
         return "cases_report"; // Must match the file name in templates/
     }
 
-
-     @GetMapping("/cases/delete/{id}")
+    @GetMapping("/cases/delete/{id}")
     public String deleteCase(@PathVariable Long id) {
         caseRepository.deleteById(id);
         return "redirect:/cases-report";
@@ -87,9 +86,6 @@ public class CasesHearingsController {
         return "redirect:/cases-report";
     }
 
-
-
-
     @PostMapping("/add-hearing")
     public String addHearing(@ModelAttribute("hearing") Hearing newHearing,
             @RequestParam("hearingCase") Long caseId) {
@@ -107,6 +103,38 @@ public class CasesHearingsController {
     public String viewHearingssReport(Model model) {
         model.addAttribute("hearings", hearingRepository.findAll()); // Fetch all clients
         return "hearings_report"; // Must match the file name in templates/
+    }
+
+    @GetMapping("/hearings/delete/{id}")
+    public String deleteHearing(@PathVariable Long id) {
+        hearingRepository.deleteById(id);
+        return "redirect:/hearings-report";
+    }
+
+    // SHOW the edit form
+    @GetMapping("/hearings/edit/{id}")
+    public String showEditHearingForm(@PathVariable Long id, Model model) {
+        Hearing hearing = hearingRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid case Id:" + id));
+        model.addAttribute("hearing", hearing);
+        return "edit_hearing"; // This is the HTML page you'll create
+    }
+
+    // PROCESS the update
+    @PostMapping("/hearings/update/{id}")
+    public String updateHearing(@PathVariable Long id, @ModelAttribute("hearing") Hearing updatedHearing) {
+        Hearing hearing = hearingRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid case Id:" + id));
+
+        // Update fields
+        hearing.setHearingDate(updatedHearing.getHearingDate());
+        hearing.setJudgeName(updatedHearing.getJudgeName());
+        hearing.setCourtLocation(updatedHearing.getCourtLocation());
+        hearing.setOutcome(updatedHearing.getOutcome());
+        hearing.setLegalCase(updatedHearing.getLegalCase());
+        // hearing.setAddress(updatedHearing.getAddress());
+        hearingRepository.save(hearing);
+        return "redirect:/hearing-report";
     }
 
 }
