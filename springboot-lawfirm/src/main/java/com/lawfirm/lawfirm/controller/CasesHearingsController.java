@@ -6,6 +6,10 @@ import com.lawfirm.lawfirm.repository.CaseRepository;
 import com.lawfirm.lawfirm.repository.HearingRepository;
 import com.lawfirm.lawfirm.repository.ClientRepository;
 import com.lawfirm.lawfirm.repository.LawyerRepository;
+
+import java.time.LocalDate;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -103,6 +107,24 @@ public class CasesHearingsController {
     public String viewHearingssReport(Model model) {
         model.addAttribute("hearings", hearingRepository.findAll()); // Fetch all clients
         return "hearings_report"; // Must match the file name in templates/
+    }
+
+    @GetMapping("/hearings/search")
+    public String searchHearings(@RequestParam("keyword") String keyword, Model model) {
+        LocalDate hearingDate = null;
+
+        try {
+            hearingDate = LocalDate.parse(keyword); // Only works if keyword is "yyyy-MM-dd"
+        } catch (Exception e) {
+            // Not a valid date, so hearingDate stays null
+        }
+
+        List<Hearing> hearings = hearingRepository
+                .findByHearingDateOrJudgeNameContainingIgnoreCaseOrCourtLocationContainingIgnoreCase(
+                        hearingDate, keyword, keyword);
+
+        model.addAttribute("hearings", hearings);
+        return "hearings_report";
     }
 
     @GetMapping("/hearings/delete/{id}")
