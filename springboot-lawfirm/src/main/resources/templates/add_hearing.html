@@ -57,6 +57,21 @@
 
                 <form th:action="@{/admin/save-hearing}" method="post" th:object="${hearing}">
                     <div class="row">
+                        <div class="col-md-12">
+                            <div class="mb-3">
+                                <label for="hearingCase" class="form-label">Select Case</label>
+                                <!-- <p>Total Cases: <span th:text="${#lists.size(cases)}"></span></p> -->
+                                <select class="form-select" id="hearingCase" name="hearingCase" required>
+                                    <option value="">-- Select a Case --</option>
+                                    <option th:each="c : ${cases}" th:value="${c.caseId}"
+                                        th:text="|${c.caseDetails} (Client: ${c.client.firstName} ${c.client.lastName}, Lawyer: ${c.lawyer.firstName} ${c.lawyer.lastName})|">
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="hearingDate" class="form-label">Hearing Date</label>
@@ -93,19 +108,7 @@
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="mb-3">
-                                <label for="hearingCase" class="form-label">Select Case</label>
-                                <select class="form-select" id="hearingCase" name="hearingCase" required>
-                                    <option value="" disabled selected>Select a Case</option>
-                                    <option th:each="c : ${cases}" th:value="${c.id}"
-                                        th:text="${c.title + ' (Client: ' + c.client.firstName + ' ' + c.client.lastName + ', Lawyer: ' + c.lawyer.firstName + ' ' + c.lawyer.lastName + ')'}">
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
+
 
                     <div class="row g-2 mb-3">
                         <div class="col-12 col-md-6 d-grid">

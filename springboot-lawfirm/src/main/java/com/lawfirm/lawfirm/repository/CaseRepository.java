@@ -18,4 +18,6 @@ public interface CaseRepository extends JpaRepository<LegalCase, Long> {
            OR LOWER(CONCAT(c.lawyer.firstName, ' ', c.lawyer.lastName)) LIKE LOWER(CONCAT('%', :keyword, '%'))
     """)
     List<LegalCase> searchByKeyword(@Param("keyword") String keyword);
+
+     long countByStatus(String status);
 }

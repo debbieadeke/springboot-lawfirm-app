@@ -37,7 +37,8 @@ public class CasesHearingsController {
         model.addAttribute("lawyers", lawyerRepository.findAll());
         model.addAttribute("cases", caseRepository.findAll());
         return "cases_hearings";
-    }
+        }
+    
 
     @PostMapping("/add-case")
     public String addCase(@ModelAttribute("legalCase") LegalCase newCase,
@@ -70,13 +71,20 @@ public class CasesHearingsController {
     public String showEditCaseForm(@PathVariable Long id, Model model) {
         LegalCase legalcase = caseRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid case Id:" + id));
+
         model.addAttribute("case", legalcase);
-        return "edit_case"; // This is the HTML page you'll create
+        model.addAttribute("clients", clientRepository.findAll());
+        model.addAttribute("lawyers", lawyerRepository.findAll());
+
+        return "edit_case"; // edit_case.html
     }
 
     // PROCESS the update
     @PostMapping("/cases/update/{id}")
-    public String updateCase(@PathVariable Long id, @ModelAttribute("case") LegalCase updatedCase) {
+    public String updateCase(
+            @PathVariable Long id,
+            @ModelAttribute("case") LegalCase updatedCase) {
+
         LegalCase legalCase = caseRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid case Id:" + id));
 
@@ -85,7 +93,15 @@ public class CasesHearingsController {
         legalCase.setStatus(updatedCase.getStatus());
         legalCase.setFilingDate(updatedCase.getFilingDate());
         legalCase.setClosingDate(updatedCase.getClosingDate());
-        // legalCase.setAddress(updatedCase.getAddress());
+
+        // Update relations (Client and Lawyer)
+        if (updatedCase.getClient() != null) {
+            legalCase.setClient(updatedCase.getClient());
+        }
+        if (updatedCase.getLawyer() != null) {
+            legalCase.setLawyer(updatedCase.getLawyer());
+        }
+
         caseRepository.save(legalCase);
         return "redirect:/cases-report";
     }
@@ -97,10 +113,20 @@ public class CasesHearingsController {
         return "cases_report";
     }
 
+
+    
+    @GetMapping("/add-hearing")
+    public String showAddHearingForm(Model model) {
+        model.addAttribute("hearing", new Hearing());
+        model.addAttribute("cases", caseRepository.findAll());
+        return "add_hearing";
+    }
+
     @PostMapping("/add-hearing")
     public String addHearing(@ModelAttribute("hearing") Hearing newHearing,
             @RequestParam("hearingCase") Long caseId) {
         LegalCase selectedCase = caseRepository.findById(caseId).orElse(null);
+
         if (selectedCase == null) {
             return "redirect:/cases-hearings?error=invalidCase";
         }
@@ -109,6 +135,8 @@ public class CasesHearingsController {
         hearingRepository.save(newHearing);
         return "redirect:/cases-hearings";
     }
+
+    // Removed erroneous duplicate line
 
     @GetMapping("/hearings-report")
     public String viewHearingssReport(Model model) {
@@ -163,7 +191,9 @@ public class CasesHearingsController {
         hearing.setLegalCase(updatedHearing.getLegalCase());
         // hearing.setAddress(updatedHearing.getAddress());
         hearingRepository.save(hearing);
-        return "redirect:/hearing-report";
+        return "redirect:/hearings-report";  
     }
-
 }
+
+
+

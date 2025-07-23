@@ -26,13 +26,12 @@ public class AdminController {
     private CaseRepository caseRepository; // Assuming you have a CaseRepository for managing cases
 
     @Autowired
-    private HearingRepository hearingRepository; 
+    private HearingRepository hearingRepository;
 
-
-    @GetMapping("/dashboard")
-    public String adminDashboard() {
-        return "admin_dashboard"; // admin_dashboard.html
-    }
+    // @GetMapping("/dashboard")
+    // public String adminDashboard() {
+    // return "admin_dashboard"; // admin_dashboard.html
+    // }
 
     @GetMapping("/add-lawyer")
     public String showAddLawyerForm(Model model) {
@@ -49,7 +48,7 @@ public class AdminController {
     @GetMapping("/add-client")
     public String showAddClientForm(Model model) {
         model.addAttribute("client", new Client());
-        return "add_client"; 
+        return "add_client";
     }
 
     @PostMapping("/save-client")
@@ -58,32 +57,55 @@ public class AdminController {
         return "redirect:/admin/dashboard";
     }
 
-     @GetMapping("/add-case")
+    @GetMapping("/add-case")
     public String showAddCaseForm(Model model) {
         model.addAttribute("case", new LegalCase());
         model.addAttribute("clients", clientRepository.findAll());
         model.addAttribute("lawyers", lawyerRepository.findAll());
-        return "add_case"; 
+        return "add_case";
     }
 
     @PostMapping("/save-case")
     public String saveCase(@ModelAttribute LegalCase legalcase) {
         caseRepository.save(legalcase);
-        
+
         return "redirect:/admin/dashboard";
     }
 
     @GetMapping("/add-hearing")
     public String showAddHearingForm(Model model) {
         model.addAttribute("hearing", new Hearing());
-        return "add_hearing"; 
+        model.addAttribute("cases", caseRepository.findAll()); // <-- Add this back
+        return "add_hearing";
     }
 
     @PostMapping("/save-hearing")
-    public String saveHearing(@ModelAttribute Hearing hearing) {
+    public String saveHearing(@ModelAttribute Hearing hearing,
+            @RequestParam("hearingCase") Long caseId) {
+        LegalCase selectedCase = caseRepository.findById(caseId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid case ID"));
+
+        hearing.setLegalCase(selectedCase);
         hearingRepository.save(hearing);
+
         return "redirect:/admin/dashboard";
     }
-    
-}
 
+    @GetMapping("/dashboard")
+    public String adminDashboard(Model model) {
+        // Fetch counts
+        long totalClients = clientRepository.count();
+        long totalLawyers = lawyerRepository.count();
+        long activeCases = caseRepository.countByStatus("open"); // You will add this query
+        long closedCases = caseRepository.countByStatus("closed"); // You will add this query
+
+        // Add data to the model
+        model.addAttribute("totalClients", totalClients);
+        model.addAttribute("totalLawyers", totalLawyers);
+        model.addAttribute("activeCases", activeCases);
+        model.addAttribute("closedCases", closedCases);
+
+        return "admin_dashboard";
+    }
+
+}
