@@ -90,6 +90,13 @@ public class CasesHearingsController {
         return "redirect:/cases-report";
     }
 
+    @GetMapping("/cases/search")
+    public String searchCases(@RequestParam("keyword") String keyword, Model model) {
+        List<LegalCase> cases = caseRepository.searchByKeyword(keyword);
+        model.addAttribute("cases", cases);
+        return "cases_report";
+    }
+
     @PostMapping("/add-hearing")
     public String addHearing(@ModelAttribute("hearing") Hearing newHearing,
             @RequestParam("hearingCase") Long caseId) {

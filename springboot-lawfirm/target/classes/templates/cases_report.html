@@ -97,6 +97,7 @@
                         <th>Case Status</th>
                         <th>Filing Date</th>
                         <th>Closing Date</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -107,6 +108,17 @@
                         <td th:text="${case.status}">Case Status</td>
                         <td th:text="${case.filingDate}">Filing Date</td>
                         <td th:text="${case.closingDate}">Closing Date</td>
+                        <td>
+                            <a th:href="@{/cases/edit/{id}(id=${case.caseId})}"
+                                class="btn btn-sm btn-outline-primary me-2" title="Edit">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+                            <a th:href="@{/cases/delete/{id}(id=${case.caseId})}" class="btn btn-sm btn-outline-danger"
+                                title="Delete"
+                                onclick="return confirm('Are you sure you want to delete this case?');">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </td>
                     </tr>
 
                 </tbody>
