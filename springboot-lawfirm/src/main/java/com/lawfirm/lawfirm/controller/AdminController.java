@@ -12,6 +12,7 @@ import com.lawfirm.lawfirm.repository.LawyerRepository;
 import com.lawfirm.lawfirm.repository.CaseRepository;
 import com.lawfirm.lawfirm.models.Hearing;
 import com.lawfirm.lawfirm.repository.HearingRepository;
+import org.springframework.security.core.Authentication;
 
 @Controller
 @RequestMapping("/admin")
@@ -92,20 +93,25 @@ public class AdminController {
     }
 
     @GetMapping("/dashboard")
-    public String adminDashboard(Model model) {
-        // Fetch counts
-        long totalClients = clientRepository.count();
-        long totalLawyers = lawyerRepository.count();
-        long activeCases = caseRepository.countByStatus("open"); // You will add this query
-        long closedCases = caseRepository.countByStatus("closed"); // You will add this query
+public String dashboard(Model model, Authentication authentication) {
+    // Fetch stats
+    long totalClients = clientRepository.count();
+    long totalLawyers = lawyerRepository.count();
+    long activeCases = caseRepository.countByStatus("open");
+    long closedCases = caseRepository.countByStatus("closed");
 
-        // Add data to the model
-        model.addAttribute("totalClients", totalClients);
-        model.addAttribute("totalLawyers", totalLawyers);
-        model.addAttribute("activeCases", activeCases);
-        model.addAttribute("closedCases", closedCases);
+    // Add stats to model
+    model.addAttribute("totalClients", totalClients);
+    model.addAttribute("totalLawyers", totalLawyers);
+    model.addAttribute("activeCases", activeCases);
+    model.addAttribute("closedCases", closedCases);
 
-        return "admin_dashboard";
-    }
+    // Add user role
+    model.addAttribute("role", authentication.getAuthorities().iterator().next().getAuthority());
+
+    return "admin_dashboard";  // same view for admin/lawyer
+}
+
+    
 
 }

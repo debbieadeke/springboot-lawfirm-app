@@ -12,7 +12,9 @@ com\lawfirm\lawfirm\controller\HomeController.class
 com\lawfirm\lawfirm\models\Client.class
 com\lawfirm\lawfirm\models\Hearing.class
 com\lawfirm\lawfirm\controller\AuthController.class
+com\lawfirm\lawfirm\services\CustomUserDetailsService.class
 com\lawfirm\lawfirm\repository\LawyerRepository.class
+com\lawfirm\lawfirm\config\SecurityConfig.class
 com\lawfirm\lawfirm\controller\LawyerController.class
 com\lawfirm\lawfirm\controller\AdminController.class
 com\lawfirm\lawfirm\repository\CaseRepository.class

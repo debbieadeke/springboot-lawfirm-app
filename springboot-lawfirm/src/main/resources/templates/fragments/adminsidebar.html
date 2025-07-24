@@ -1,82 +1,108 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
     <!-- Bootstrap CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-<!-- Bootstrap JS (for collapse/dropdowns) -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap JS (for collapse/dropdowns) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </head>
+
 <body>
-<div th:fragment="adminsidebar">
-    <nav id="sidebar" class="bg-primary text-white p-3" style="width: 250px; height: 100vh; position: fixed;">
-        <h4 class="mb-4">Admin Panel</h4>
+    <div th:fragment="adminsidebar">
+        <nav id="sidebar" class="bg-primary text-white p-3" style="width: 250px; height: 100vh; position: fixed;">
+            <h4 class="mb-4">Admin Panel</h4>
 
-        <!-- Lawyers Dropdown -->
-        <div class="mb-3">
-            <button class="btn btn-outline-light w-100 text-start" data-bs-toggle="collapse" data-bs-target="#lawyersMenu" aria-expanded="false">
-                Lawyers
-            </button>
-            <div class="collapse" id="lawyersMenu">
-                <ul class="list-unstyled ps-3">
-                    <li><a th:href="@{/admin/add-lawyer}" class="text-white text-decoration-none d-block py-1">Add Lawyer</a></li>
-                    <li><a th:href="@{/lawyers-report}" class="text-white text-decoration-none d-block py-1">View Lawyers</a></li>
-                </ul>
+            <!-- Lawyers Dropdown -->
+            <div class="mb-3">
+                <button class="btn btn-outline-light w-100 text-start" data-bs-toggle="collapse"
+                    data-bs-target="#lawyersMenu" aria-expanded="false">
+                    Lawyers
+                </button>
+                <div class="collapse" id="lawyersMenu">
+                    <ul class="list-unstyled ps-3">
+                        <li>
+                        <li sec:authorize="hasRole('ADMIN')">
+                            <a th:href="@{/admin/add-lawyer}" class="text-white text-decoration-none d-block py-1">
+                                Add Lawyer
+                            </a>
+                        </li><a th:href="@{/admin/add-lawyer}" class="text-white text-decoration-none d-block py-1">Add
+                            Lawyer</a></li>
+                        <li><a th:href="@{/lawyers-report}" class="text-white text-decoration-none d-block py-1">View
+                                Lawyers</a></li>
+                    </ul>
+                </div>
             </div>
-        </div>
 
-        <!-- Clients Dropdown -->
-        <div class="mb-3">
-            <button class="btn btn-outline-light w-100 text-start" data-bs-toggle="collapse" data-bs-target="#clientsMenu" aria-expanded="false">
-                Clients
-            </button>
-            <div class="collapse" id="clientsMenu">
-                <ul class="list-unstyled ps-3">
-                    <li><a th:href="@{/admin/add-client}" class="text-white text-decoration-none d-block py-1">Add Client</a></li>
-                    <li><a th:href="@{/clients-report}" class="text-white text-decoration-none d-block py-1">View Clients</a></li>
-                </ul>
+            <!-- Clients Dropdown -->
+            <div class="mb-3">
+                <button class="btn btn-outline-light w-100 text-start" data-bs-toggle="collapse"
+                    data-bs-target="#clientsMenu" aria-expanded="false">
+                    Clients
+                </button>
+                <div class="collapse" id="clientsMenu">
+                    <ul class="list-unstyled ps-3">
+                        <li><a th:href="@{/admin/add-client}" class="text-white text-decoration-none d-block py-1">Add
+                                Client</a></li>
+                        <li><a th:href="@{/clients-report}" class="text-white text-decoration-none d-block py-1">View
+                                Clients</a></li>
+                    </ul>
+                </div>
             </div>
-        </div>
 
-        <!-- Cases Dropdown -->
-        <div class="mb-3">
-            <button class="btn btn-outline-light w-100 text-start" data-bs-toggle="collapse" data-bs-target="#casesMenu" aria-expanded="false">
-                Cases
-            </button>
-            <div class="collapse" id="casesMenu">
-                <ul class="list-unstyled ps-3">
-                    <li><a th:href="@{/admin/add-case}" class="text-white text-decoration-none d-block py-1">Add Case</a></li>
-                    <li><a th:href="@{/cases-report}" class="text-white text-decoration-none d-block py-1">View Cases</a></li>
-                </ul>
+            <!-- Cases Dropdown -->
+            <div class="mb-3">
+                <button class="btn btn-outline-light w-100 text-start" data-bs-toggle="collapse"
+                    data-bs-target="#casesMenu" aria-expanded="false">
+                    Cases
+                </button>
+                <div class="collapse" id="casesMenu">
+                    <ul class="list-unstyled ps-3">
+                        <li><a th:href="@{/admin/add-case}" class="text-white text-decoration-none d-block py-1">Add
+                                Case</a></li>
+                        <li><a th:href="@{/cases-report}" class="text-white text-decoration-none d-block py-1">View
+                                Cases</a></li>
+                    </ul>
+                </div>
             </div>
-        </div>
 
-        <div class="mb-3">
-            <button class="btn btn-outline-light w-100 text-start" data-bs-toggle="collapse" data-bs-target="#hearingsMenu" aria-expanded="false">
-                Hearings
-            </button>
-            <div class="collapse" id="hearingsMenu">
-                <ul class="list-unstyled ps-3">
-                    <li><a th:href="@{/admin/add-hearing}" class="text-white text-decoration-none d-block py-1">Add Hearing</a>
-                    <li><a th:href="@{/hearings-report}" class="text-white text-decoration-none d-block py-1">View Hearing</a></li>
-                </ul>
+            <div class="mb-3">
+                <button class="btn btn-outline-light w-100 text-start" data-bs-toggle="collapse"
+                    data-bs-target="#hearingsMenu" aria-expanded="false">
+                    Hearings
+                </button>
+                <div class="collapse" id="hearingsMenu">
+                    <ul class="list-unstyled ps-3">
+                        <li><a th:href="@{/admin/add-hearing}" class="text-white text-decoration-none d-block py-1">Add
+                                Hearing</a>
+                        <li><a th:href="@{/hearings-report}" class="text-white text-decoration-none d-block py-1">View
+                                Hearing</a></li>
+                    </ul>
+                </div>
             </div>
-        </div>
 
-        <div class="mb-3">
-            <button class="btn btn-outline-light w-100 text-start" data-bs-toggle="collapse" data-bs-target="#reportsMenu" aria-expanded="false">
-                Reports
-            </button>
-            <div class="collapse" id="reportsMenu">
-                <ul class="list-unstyled ps-3">
-                    <li><a th:href="@{/lawyers-report}" class="text-white text-decoration-none d-block py-1">Lawyers Report</a></li>
-                    <li><a th:href="@{/clients-report}" class="text-white text-decoration-none d-block py-1">Clients Report</a></li>
-                    <li><a th:href="@{/cases-report}" class="text-white text-decoration-none d-block py-1">Cases Report</a></li>
-                    <li><a th:href="@{/hearings-report}" class="text-white text-decoration-none d-block py-1">Hearings Report</a></li>
-                </ul>
+            <div class="mb-3">
+                <button class="btn btn-outline-light w-100 text-start" data-bs-toggle="collapse"
+                    data-bs-target="#reportsMenu" aria-expanded="false">
+                    Reports
+                </button>
+                <div class="collapse" id="reportsMenu">
+                    <ul class="list-unstyled ps-3">
+                        <li><a th:href="@{/lawyers-report}" class="text-white text-decoration-none d-block py-1">Lawyers
+                                Report</a></li>
+                        <li><a th:href="@{/clients-report}" class="text-white text-decoration-none d-block py-1">Clients
+                                Report</a></li>
+                        <li><a th:href="@{/cases-report}" class="text-white text-decoration-none d-block py-1">Cases
+                                Report</a></li>
+                        <li><a th:href="@{/hearings-report}"
+                                class="text-white text-decoration-none d-block py-1">Hearings Report</a></li>
+                    </ul>
+                </div>
             </div>
-        </div>
-    </nav>
-</div>
+        </nav>
+    </div>
 </body>
+
 </html>
